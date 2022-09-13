@@ -1,8 +1,8 @@
 import prisma from "../config/database";
 
-import {AuthData} from '../interfaces/authInterface';
+import {UserData} from '../interfaces/authInterface';
 
-export async function insert(authData: AuthData){
+export async function insert(authData: UserData){
    await prisma.users.create({data: authData});
 }
 

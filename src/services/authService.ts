@@ -1,4 +1,4 @@
-import { AuthData } from "../interfaces/authInterface";
+import { AuthData, UserData } from "../interfaces/authInterface";
 import * as authRepository from '../repositories/authRepository';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
@@ -11,15 +11,17 @@ export async function createUser(userData: AuthData){
     const encryptedPassword = bcrypt.hashSync(userData.password, 10);
     const user = await authRepository.findByEmail(userData.email);
     if(user) throw{type: "conflict", message: "This user already exists"}
+
+    if(userData.password !== userData.confirmPassword) throw{type: "unauthorized", message: "Incorrect confirm password"}
     
     await authRepository.insert({
-        ...userData,
+        email: userData.email,
         password: encryptedPassword
     });
 }
 
 
-export async function loginUser(userData: AuthData){
+export async function loginUser(userData: UserData){
     const user = await authRepository.findByEmail(userData.email);
     const validatePassword = bcrypt.compareSync(userData.password, user!.password);
     if(!user || !validatePassword) throw{type: "unauthorized", message: "Incorrect email or password"}
