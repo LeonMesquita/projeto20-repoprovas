@@ -7,6 +7,7 @@ const testRouter = Router();
 
 
 testRouter.post('/tests', validateSchema(testSchema), validateToken, testController.addTest);
+testRouter.get('/tests/disciplines',validateToken, testController.getTestsByDisciplines);
 
 
 export default testRouter;

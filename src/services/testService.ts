@@ -23,3 +23,10 @@ export async function addTest(testData: TestData){
     teacherDisciplineId: teacherDiscipline.id
    });
 }
+
+
+export async function getTestsByDisciplines(){
+   const tests = await testRepository.findByDisciplines();
+   console.log(tests)
+   return tests;
+}

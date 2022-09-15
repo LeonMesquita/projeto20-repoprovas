@@ -1,4 +1,5 @@
 import { AuthData, UserData } from "../interfaces/authInterface";
+import { users } from "@prisma/client";
 import * as authRepository from '../repositories/authRepository';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
@@ -22,9 +23,11 @@ export async function createUser(userData: AuthData){
 
 
 export async function loginUser(userData: UserData){
+    console.log(userData)
     const user = await authRepository.findByEmail(userData.email);
-    const validatePassword = bcrypt.compareSync(userData.password, user!.password);
-    if(!user || !validatePassword) throw{type: "unauthorized", message: "Incorrect email or password"}
+    if(!user) throw{type: "unauthorized", message: "Incorrect email or password"}
+    const validatePassword = bcrypt.compareSync(userData.password, user.password);
+    if(!validatePassword) throw{type: "unauthorized", message: "Incorrect email or password"}
     const secretKey: string = process.env.JWT_SECRET!;
     const token = jwt.sign(user.id.toString(), secretKey);
     return token;

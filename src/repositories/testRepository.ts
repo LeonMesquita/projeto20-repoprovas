@@ -7,6 +7,39 @@ export async function insert(data: TestBody){
 
 
 
+export async function findByDisciplines(){
+    const tests = await prisma.terms.findMany({
+        include: {
+            disciplines: {
+                include: {
+                    
+                    teachersDisciplines: {
+                        include: {
+                            tests: {
+                                include: {
+                                    categories: {}
+                                    
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            
+        
+        }
+    });
+   return tests; 
+}
+
+
+export async function findByTeachers(){
+
+}
+
+
+
 export async function getById(id: number){
 
 }

@@ -14,3 +14,11 @@ export async function addTest(req: Request, res: Response){
     });
     return res.sendStatus(201);
 }
+
+
+
+export async function getTestsByDisciplines(req: Request, res: Response){
+   const tests = await testService.getTestsByDisciplines();
+
+   res.status(200).send(tests);
+}
