@@ -9,25 +9,30 @@ export async function insert(data: TestBody){
 
 export async function findByDisciplines(){
     const tests = await prisma.terms.findMany({
-        include: {
+        select: {
+            id: true,
+            number: true,
             disciplines: {
-                include: {
-                    
+                select: {
+                    id: true,
+                    name: true,
                     teachersDisciplines: {
-                        include: {
+                        select: {
+                            id: true,
                             tests: {
-                                include: {
-                                    categories: {}
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    pdfUrl: true,
+                                    categories: true
                                     
                                 }
+
                             }
                         }
                     }
-                    
                 }
             }
-            
-        
         }
     });
    return tests; 

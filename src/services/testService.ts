@@ -15,7 +15,7 @@ export async function addTest(testData: TestData){
    const teacherDiscipline = await teacherDisciplinesRepository.findById(testData.teacherId, testData.disciplineId);
    if(!teacherDiscipline) throw {type: "not_found", message: "This teacher does not teach this discipline"};
 
-   console.log(teacherDiscipline)
+
    await testRepository.insert({
     name: testData.name,
     pdfUrl: testData.pdfUrl,
