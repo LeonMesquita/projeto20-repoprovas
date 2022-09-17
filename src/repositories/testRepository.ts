@@ -19,16 +19,24 @@ export async function findByDisciplines(){
                     teachersDisciplines: {
                         select: {
                             id: true,
-                            tests: {
-                                select: {
-                                    id: true,
-                                    name: true,
-                                    pdfUrl: true,
-                                    categories: true
-                                    
+                            tests: {distinct: ['categoryId'],
+                            select: {
+                                categories: {
+                                    select: {
+                                        id: true,
+                                        name: true,
+                                        tests: {
+                                            select: {
+                                                id: true,
+                                                name: true,
+                                                pdfUrl: true
+                                            }
+                                        }
+                                    }
                                 }
-
                             }
+                        
+                        }
                         }
                     }
                 }
@@ -40,7 +48,36 @@ export async function findByDisciplines(){
 
 
 export async function findByTeachers(){
-
+    const tests = await prisma.teachers.findMany({
+        select: {
+            id: true,
+            name: true,
+            teachersDisciplines: {
+                select: {
+                    id: true,
+                    tests: {distinct: ['categoryId'],
+                        select: {
+                            categories: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    tests: {
+                                        select: {
+                                            id: true,
+                                            name: true,
+                                            pdfUrl: true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    
+                    }
+                }
+            }
+        }
+    });
+   return tests; 
 }
 
 

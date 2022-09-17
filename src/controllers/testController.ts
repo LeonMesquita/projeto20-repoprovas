@@ -22,3 +22,10 @@ export async function getTestsByDisciplines(req: Request, res: Response){
 
    res.status(200).send(tests);
 }
+
+
+export async function getTestsByTeachers(req: Request, res: Response){
+    const tests = await testService.getTestsByTeachers();
+
+   res.status(200).send(tests);   
+}

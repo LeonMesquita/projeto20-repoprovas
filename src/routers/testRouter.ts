@@ -8,6 +8,6 @@ const testRouter = Router();
 
 testRouter.post('/tests', validateSchema(testSchema), validateToken, testController.addTest);
 testRouter.get('/tests/disciplines',validateToken, testController.getTestsByDisciplines);
-
+testRouter.get('/tests/teachers', validateToken, testController.getTestsByTeachers);
 
 export default testRouter;

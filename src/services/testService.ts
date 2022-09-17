@@ -30,3 +30,10 @@ export async function getTestsByDisciplines(){
    console.log(tests)
    return tests;
 }
+
+
+export async function getTestsByTeachers(){
+   const tests = await testRepository.findByTeachers();
+   console.log(tests)
+   return tests;
+}
