@@ -6,7 +6,6 @@ import { TestData } from '../interfaces/testInterface';
 
 
 
-
 export async function addTest(testData: TestData){
    const teacher = await teacherRepository.getById(testData.teacherId);
    if(!teacher) throw {type: "not_found", message: "Teacher not found"};
@@ -37,3 +36,5 @@ export async function getTestsByTeachers(){
    console.log(tests)
    return tests;
 }
+
+
