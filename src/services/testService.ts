@@ -9,7 +9,7 @@ import { TestData } from '../interfaces/testInterface';
 
 export async function addTest(testData: TestData){
    const category = await categoryRepository.findById(testData.categoryId);
-   if(!category) throw {type: "not_found", message: "Teacher not found"};
+   if(!category) throw {type: "not_found", message: "Category not found"};
    const teacher = await teacherRepository.findById(testData.teacherId);
    if(!teacher) throw {type: "not_found", message: "Teacher not found"};
    const discipline = await disciplineRepository.findById(testData.disciplineId);

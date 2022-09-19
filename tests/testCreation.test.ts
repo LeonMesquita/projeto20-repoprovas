@@ -64,8 +64,6 @@ describe('Test Tests Routes', () => {
         expect(response.status).toBe(422);
     });
 
-    /// falta testar o formato do body
-
 
 });
 
