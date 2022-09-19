@@ -2,12 +2,15 @@ import * as testRepository from '../repositories/testRepository';
 import * as teacherRepository from '../repositories/teacherRepository';
 import * as teacherDisciplinesRepository from '../repositories/teacherDisciplinesRepository';
 import * as disciplineRepository from '../repositories/disciplineRepository';
+import * as categoryRepository from '../repositories/categoryRepository';
 import { TestData } from '../interfaces/testInterface';
 
 
 
 export async function addTest(testData: TestData){
-   const teacher = await teacherRepository.getById(testData.teacherId);
+   const category = await categoryRepository.findById(testData.categoryId);
+   if(!category) throw {type: "not_found", message: "Teacher not found"};
+   const teacher = await teacherRepository.findById(testData.teacherId);
    if(!teacher) throw {type: "not_found", message: "Teacher not found"};
    const discipline = await disciplineRepository.findById(testData.disciplineId);
    if(!discipline) throw {type: "not_found", message: "Discipline not found"};
